@@ -1,5 +1,6 @@
 package rocks.zipcode.io.assessment4.generics;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,7 +46,23 @@ public class ArrayUtility<SomeType> {
     }
 
     public SomeType[] filter(Function<SomeType, Boolean> predicate) {
+        Integer count = 0;
 
-        return null;
-    }
+        @SuppressWarnings("unchecked")
+        SomeType[] a = (SomeType[]) Array.newInstance(array[0].getClass(), array.length);
+
+        for (int i = 0; i < array.length; i++) {
+            if (predicate.apply(array[i])) {
+                a[count++] = array[i];
+            }
+        }
+        @SuppressWarnings("unchecked")
+
+        SomeType[] b = (SomeType[]) Array.newInstance(array[0].getClass(), count);
+        for (int i = 0; i < b.length; i++) {
+            b[i] = a[i];
+        }
+        return b;    }
+
+
 }
